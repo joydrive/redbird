@@ -5,7 +5,7 @@
 
 version: 2
 updates:
- - package-ecosystem: "mix"
+  - package-ecosystem: "mix"
     # Allow Mix to execute external code in the manifest as part of the version update process.
     # See the following link for more details.
     # https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
