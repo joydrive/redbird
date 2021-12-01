@@ -18,7 +18,7 @@ defmodule Redbird.Mixfile do
       ],
       description: "A Redis adapter for Plug.Session",
       source_url: "https://github.com/thoughtbot/redbird",
-      docs: [extras: ["README.md"], main: "readme"]
+      docs: [extras: ["README.md", "CONTRIBUTING.md", "LICENSE"], main: "readme"]
     ]
   end
 
