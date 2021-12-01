@@ -16,11 +16,11 @@ Fork the repo.
 
 Install dependencies:
 
-    `bin/setup`
+    bin/setup
 
 Make sure the tests pass:
 
-    `bin/test_suite`
+    bin/test_suite
 
 Make your change, with new passing tests. Follow the [style guide][style].
 
