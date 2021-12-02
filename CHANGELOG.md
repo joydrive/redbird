@@ -7,6 +7,35 @@ complete changelog, see the git history for each version via the version links.
 
 [hex package page]: https://hex.pm/packages/redbird
 
+## [Unreleased]
+
+[Unreleased]: https://github.com/joydrive/redbird/compare/v0.7.2...HEAD
+
+## [0.7.2]
+
+### Changed
+
+- Update documentation to clarify that Redbird does not need to be included in the application list ([#54])
+- Update redix from 1.0.0 to 1.1.5 ([#79], [#3])
+- Update ex_doc from 0.23.0 to 0.26.0 and fix documentation errors ([#2])
+- Update plug_crypto from 1.2.0 to 1.2.2 ([#7])
+- Update plug from 1.1.3 to 1.12.1 ([#6])
+- Update mock from 0.3.6 to 0.3.7 ([#5])
+
+### Removed
+
+- Remove `/doc`, add `/doc` to .gitignore ([0deb887])
+
+[#2]: https://github.com/joydrive/redbird/pull/2
+[#3]: https://github.com/joydrive/redbird/pull/3
+[#5]: https://github.com/joydrive/redbird/pull/5
+[#6]: https://github.com/joydrive/redbird/pull/6
+[#7]: https://github.com/joydrive/redbird/pull/7
+[#79]: https://github.com/thoughtbot/redbird/pull/79
+[#54]: https://github.com/thoughtbot/redbird/pull/54
+[0deb887]: https://github.com/joydrive/redbird/commit/0deb887
+[0.7.2]: https://github.com/joydrive/redbird/compare/v0.7.1...v0.7.2
+
 ## [0.7.1]
 
 ### Fixes
