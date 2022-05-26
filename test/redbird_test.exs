@@ -115,6 +115,20 @@ defmodule RedbirdTest do
                      end
       end
     end
+
+    test "it throws an exception properly when failure is of Redix.ConnectionError type" do
+      with_mock Redbird.Redis, setex: fn _ -> %Redix.ConnectionError{reason: "something"} end do
+        assert_raise Redbird.RedisError,
+                     ~r/Redbird was unable to store the session in redis. Redis Error: %Redix.ConnectionError{reason: \"something\"}/,
+                     fn ->
+                       :get
+                       |> conn("/")
+                       |> sign_conn()
+                       |> put_session(:foo, "bar")
+                       |> send_resp(200, "")
+                     end
+      end
+    end
   end
 
   describe "delete" do
