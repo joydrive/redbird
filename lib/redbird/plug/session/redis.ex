@@ -79,7 +79,7 @@ defmodule Redbird.RedisError do
   @base_message "Redbird was unable to store the session in redis."
 
   def raise(error: error, key: key) do
-    message = "#{@base_message} Redis Error: #{error} key: #{key}"
+    message = "#{@base_message} Redis Error: #{inspect(error)} key: #{key}"
     raise __MODULE__, message
   end
 
