@@ -1,6 +1,6 @@
 defmodule Redbird.Mixfile do
   use Mix.Project
-  @version "0.7.2"
+  @version "0.7.3"
 
   def project do
     [
@@ -33,7 +33,7 @@ defmodule Redbird.Mixfile do
     [
       {:ex_doc, "~> 0.19", only: :dev},
       {:mock, "~> 0.3", only: :test},
-      {:redix, "~> 1.1.3"},
+      {:redix, "~> 1.2"},
       {:plug, "~> 1.11"}
     ]
   end
