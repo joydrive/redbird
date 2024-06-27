@@ -10,10 +10,7 @@ defmodule Mix.Tasks.Redbird.DeleteAllSessions do
   session config. If no argument is given, it will delete all redbird sessions.
   """
   def run(_args) do
-    Application.ensure_started(:redbird)
-
-    Redbird.Key.namespace()
-    |> delete_all_sessions
+    delete_all_sessions(Redbird.Key.namespace())
   end
 
   def delete_all_sessions(namespace) do
