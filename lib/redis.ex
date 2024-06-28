@@ -1,9 +1,9 @@
 defmodule Redbird.Redis do
   def get(key) do
-    pool_module().command!(["GET", key])
+    pool_module().command(["GET", key])
     |> case do
-      nil -> :undefined
-      response -> response
+      {:ok, nil} -> :undefined
+      {:ok, response} -> response
     end
   end
 
