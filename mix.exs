@@ -24,8 +24,7 @@ defmodule Redbird.Mixfile do
 
   def application do
     [
-      extra_applications: [:logger],
-      mod: {Redbird, []}
+      extra_applications: [:logger]
     ]
   end
 
