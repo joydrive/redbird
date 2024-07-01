@@ -90,7 +90,7 @@ defmodule RedbirdTest do
         |> put_session(:foo, "bar")
         |> send_resp(200, "")
 
-      :timer.sleep(1000)
+      :timer.sleep(1100)
 
       conn =
         :get
@@ -105,7 +105,7 @@ defmodule RedbirdTest do
     test "it throws an exception after multiple attempts to store and fail" do
       with_mock Redbird.Redis, setex: fn _ -> "FAIL" end do
         assert_raise Redbird.RedisError,
-                     ~r/Redbird was unable to store the session in redis. Redis Error: FAIL/,
+                     ~r/Redbird was unable to store the session in redis. Redis Error: "FAIL".*/,
                      fn ->
                        :get
                        |> conn("/")

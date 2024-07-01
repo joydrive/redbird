@@ -1,11 +1,24 @@
 defmodule Redbird do
+  require Logger
   use Application
 
   def start(_type, _args) do
-    redis_options = Application.get_env(:redbird, :redis_options, [])
+    redis_adapter_options = Redbird.Config.redis_adapter_options()
+    redis_adapter = Redbird.Config.redis_adapter()
+    redis_adapter_module_name = String.trim_leading(to_string(redis_adapter), "Elixir.")
+
+    if Redbird.Adapter.Behaviour not in Keyword.get(
+         redis_adapter.module_info(:attributes),
+         :behaviour,
+         []
+       ) do
+      Logger.warning(
+        "The configured Redbird adapter #{redis_adapter_module_name} does not implement Redbird.Adapter.Behaviour."
+      )
+    end
 
     children = [
-      {Redbird.Redis, [{:name, Redbird.Redis.pid()} | redis_options]}
+      {redis_adapter, redis_adapter_options}
     ]
 
     opts = [strategy: :one_for_one, name: Redbird.Supervisor]
