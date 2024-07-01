@@ -6,6 +6,4 @@ defmodule Redbird.Adapter.Behaviour do
   @callback noreply_command(command(), keyword()) :: {:ok, any()} | {:error, any()}
 
   @callback command(command(), keyword()) :: {:ok, any()} | {:error, any()}
-
-  @callback command!(command(), keyword()) :: any()
 end

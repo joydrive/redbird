@@ -28,6 +28,9 @@ defmodule Redbird.Redis do
   end
 
   def keys(pattern) do
-    Config.redis_adapter().command!(["KEYS", pattern])
+    case Config.redis_adapter().command(["KEYS", pattern]) do
+      {:ok, value} -> value
+      {:error, error} -> raise error
+    end
   end
 end

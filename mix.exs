@@ -33,7 +33,7 @@ defmodule Redbird.Mixfile do
     [
       {:ex_doc, "~> 0.34", only: :dev},
       {:mock, "~> 0.3", only: :test},
-      {:redix, "~> 1.5.1"},
+      {:redix, "~> 1.5.1", optional: true},
       {:plug, "~> 1.16"}
     ]
   end
