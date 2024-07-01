@@ -17,9 +17,11 @@ defmodule Redbird do
       )
     end
 
-    children = [
-      {redis_adapter, redis_adapter_options}
-    ]
+    children =
+      case redis_adapter.worker_spec(redis_adapter_options) do
+        nil -> []
+        worker_spec -> [worker_spec]
+      end
 
     opts = [strategy: :one_for_one, name: Redbird.Supervisor]
     Supervisor.start_link(children, opts)
