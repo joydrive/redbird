@@ -80,6 +80,29 @@ defmodule RedbirdTest do
       assert conn.resp_cookies["_session_key"].value == session_key
     end
 
+    test "it allows accessing the session expiration" do
+      secret = generate_secret()
+
+      conn =
+        :get
+        |> conn("/")
+        |> sign_conn_with(secret, expiration_in_seconds: 1)
+        |> put_session(:foo, "bar")
+        |> send_resp(200, "")
+
+      conn =
+        :get
+        |> conn("/")
+        |> recycle_cookies(conn)
+        |> sign_conn_with(secret)
+        |> send_resp(200, "")
+
+      datetime = get_session(conn, :session_expiration)
+
+      assert DateTime.after?(datetime, DateTime.utc_now())
+      assert DateTime.before?(datetime, DateTime.add(DateTime.utc_now(), 2, :second))
+    end
+
     test "it allows configuring session expiration" do
       secret = generate_secret()
 

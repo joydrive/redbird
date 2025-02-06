@@ -1,5 +1,5 @@
 defmodule Plug.Session.REDIS do
-  import Redbird.Redis
+  alias Redbird.Redis
   alias Redbird.{Key, Value}
 
   @moduledoc """
@@ -18,7 +18,7 @@ defmodule Plug.Session.REDIS do
     max_age = session_expiration(init_options)
 
     with true <- Key.accessible?(prospective_key, conn, max_age: max_age),
-         value when is_binary(value) <- get(prospective_key) do
+         value when is_binary(value) <- Redis.get(prospective_key) do
       {prospective_key, Value.deserialize(value)}
     else
       _ -> {nil, %{}}
@@ -36,6 +36,8 @@ defmodule Plug.Session.REDIS do
   def put(conn, key, data, init_options) do
     max_age = session_expiration(init_options)
 
+    data = Map.put(data, "session_expiration", DateTime.add(DateTime.utc_now(), max_age, :second))
+
     if Key.accessible?(key, conn, max_age: max_age) do
       key
       |> set_key_with_retries(Value.serialize(data), max_age, 1)
@@ -47,13 +49,13 @@ defmodule Plug.Session.REDIS do
   def delete(conn, redis_key, init_options) do
     max_age = session_expiration(init_options)
 
-    if Key.accessible?(redis_key, conn, max_age: max_age), do: del(redis_key)
+    if Key.accessible?(redis_key, conn, max_age: max_age), do: Redis.del(redis_key)
 
     :ok
   end
 
   defp set_key_with_retries(key, value, seconds, counter) do
-    case setex(%{key: key, value: value, seconds: seconds}) do
+    case Redis.setex(%{key: key, value: value, seconds: seconds}) do
       :ok ->
         key
 
