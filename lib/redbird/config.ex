@@ -1,9 +1,10 @@
 defmodule Redbird.Config do
   def redis_adapter do
-    adapter = case Application.get_env(:redbird, :redis_adapter) do
-      {module, _options} -> module
-      module -> module
-    end
+    adapter =
+      case Application.get_env(:redbird, :redis_adapter) do
+        {module, _options} -> module
+        module -> module
+      end
 
     adapter || Redbird.Adapter.Redix
   end
